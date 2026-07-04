@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-display: 'Outfit', system-ui, -apple-system, sans-serif;
+  
+  --color-brand-saffron: #f97316;
+  --color-brand-saffron-dark: #ea580c;
+  --color-brand-white: #ffffff;
+  --color-brand-green: #10b981;
+  --color-brand-green-dark: #059669;
+  --color-brand-blue: #3b82f6;
+  --color-brand-blue-dark: #1d4ed8;
+  --color-brand-navy: #090d16;
+  --color-brand-navy-light: #151c2c;
+  
+  --shadow-m3-1: 0px 1px 3px 1px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.3);
+  --shadow-m3-2: 0px 2px 6px 2px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.3);
+  --shadow-m3-3: 0px 1px 3px 0px rgba(0, 0, 0, 0.3), 0px 4px 8px 3px rgba(0, 0, 0, 0.15);
+  
+  --animate-fade-in: fade-in 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --animate-slide-up: slide-up 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-scan: scan 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scan {
+  0% { top: 0%; opacity: 0.2; }
+  50% { top: 100%; opacity: 0.8; }
+  100% { top: 0%; opacity: 0.2; }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.15);
+  border-radius: 9999px;
+  border: 2px solid transparent;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.3);
+}
+
+/* Base Body Styles */
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-brand-navy);
+  color: #f1f5f9;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* Accessible Keyboard Focus States */
+:focus-visible {
+  outline: 2px solid var(--color-brand-saffron);
+  outline-offset: 4px;
+}
+
+/* Material Design Surfaces */
+.m3-surface {
+  background: rgba(21, 28, 44, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.m3-surface-hover:hover {
+  background: rgba(21, 28, 44, 0.65);
+  border-color: rgba(249, 115, 22, 0.25);
+  box-shadow: var(--shadow-m3-3);
+  transform: translateY(-2px);
+}
+
+.glow-orange {
+  box-shadow: 0 0 30px -10px rgba(249, 115, 22, 0.15);
+}
+
+.glow-blue {
+  box-shadow: 0 0 30px -10px rgba(59, 130, 246, 0.15);
+}
+
+.glow-green {
+  box-shadow: 0 0 30px -10px rgba(16, 185, 129, 0.15);
+}
