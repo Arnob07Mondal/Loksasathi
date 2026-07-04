@@ -11,9 +11,9 @@ const Card = ({
   ...props
 }) => {
   const glowClasses = {
-    saffron: 'glow-saffron border-brand-saffron/20',
-    green: 'glow-green border-brand-green/20',
-    blue: 'glow-blue border-brand-blue/30',
+    saffron: 'glow-orange border-[#2E8B57]/20',
+    green: 'glow-green border-emerald-500/20',
+    blue: 'glow-blue border-[#5FAF7B]/20',
   };
 
   const borderGlow = glowEffect ? glowClasses[glowEffect] : '';
@@ -23,7 +23,7 @@ const Card = ({
       id={id}
       className={`
         glass-panel 
-        rounded-2xl 
+        rounded-[24px] 
         overflow-hidden 
         transition-all 
         duration-300 
@@ -34,7 +34,7 @@ const Card = ({
       {...props}
     >
       {header && (
-        <div className="px-6 py-4 border-b border-slate-800/40 bg-slate-900/20 flex items-center justify-between">
+        <div className="px-6 py-4 border-b border-slate-200/40 bg-white/20 flex items-center justify-between">
           {header}
         </div>
       )}
@@ -44,7 +44,7 @@ const Card = ({
       </div>
 
       {footer && (
-        <div className="px-6 py-4 border-t border-slate-800/40 bg-slate-900/10">
+        <div className="px-6 py-4 border-t border-slate-200/40 bg-white/10">
           {footer}
         </div>
       )}

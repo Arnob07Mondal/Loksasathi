@@ -14,20 +14,20 @@ const Button = ({
   id,
   ...props
 }) => {
-  const baseStyles = 'inline-flex items-center justify-center font-semibold rounded-xl transition-all duration-200 select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 disabled:opacity-50 disabled:pointer-events-none active:scale-[0.98] cursor-pointer';
+  const baseStyles = 'inline-flex items-center justify-center font-bold rounded-[16px] transition-all duration-300 select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#2E8B57] disabled:opacity-50 disabled:pointer-events-none hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] cursor-pointer';
   
   const variants = {
-    primary: 'bg-brand-saffron hover:bg-brand-saffron-dark text-slate-950 focus-visible:ring-brand-saffron shadow-lg shadow-brand-saffron/15 hover:shadow-brand-saffron/25',
-    secondary: 'bg-brand-blue hover:bg-brand-blue-dark text-white focus-visible:ring-brand-blue shadow-lg shadow-brand-blue/15 hover:shadow-brand-blue/25',
-    outline: 'border border-slate-700 bg-transparent hover:bg-slate-800/50 hover:border-slate-500 text-slate-200 focus-visible:ring-slate-500',
-    danger: 'bg-red-500 hover:bg-red-600 text-white focus-visible:ring-red-500 shadow-lg shadow-red-500/10 hover:shadow-red-500/20',
-    ghost: 'bg-transparent hover:bg-slate-800/40 text-slate-300 hover:text-white focus-visible:ring-slate-700'
+    primary: 'bg-gradient-to-r from-[#2E8B57] to-[#5FAF7B] hover:from-[#20613d] hover:to-[#49885e] text-white focus-visible:ring-[#2E8B57] shadow-md shadow-[#2E8B57]/10 hover:shadow-lg hover:shadow-[#2E8B57]/20 border border-[#2E8B57]/10',
+    secondary: 'bg-white/55 hover:bg-white/75 border border-white/90 text-[#1F2937] focus-visible:ring-[#5FAF7B] backdrop-blur-md shadow-sm hover:shadow-md',
+    outline: 'border border-slate-200/80 bg-white/45 hover:bg-white/80 hover:border-slate-300 text-slate-700 focus-visible:ring-[#2E8B57] shadow-sm hover:shadow-md',
+    danger: 'bg-rose-500 hover:bg-rose-600 text-white focus-visible:ring-rose-500 shadow-md shadow-rose-500/10 hover:shadow-lg',
+    ghost: 'bg-transparent hover:bg-slate-200/50 text-slate-600 hover:text-slate-900 focus-visible:ring-slate-300 shadow-none hover:shadow-none hover:-translate-y-0'
   };
 
   const sizes = {
-    sm: 'text-xs px-3.5 py-1.5 gap-1.5',
-    md: 'text-sm px-5 py-2.5 gap-2',
-    lg: 'text-base px-6 py-3.5 gap-2.5'
+    sm: 'text-[11px] px-3.5 py-1.5 gap-1.5 uppercase tracking-wide',
+    md: 'text-xs px-5 py-2.5 gap-2 uppercase tracking-wide',
+    lg: 'text-sm px-6 py-3.5 gap-2.5 uppercase tracking-wider'
   };
 
   return (

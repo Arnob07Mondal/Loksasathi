@@ -1,25 +1,20 @@
 import React from 'react';
-import Header from './Header';
-import Footer from './Footer';
 
-const MainLayout = ({ children }) => {
+const MainLayout = ({ children, showLanding = false }) => {
   return (
-    <div className="flex flex-col min-h-screen bg-slate-950 text-slate-100 selection:bg-brand-saffron/30 selection:text-brand-saffron">
+    <div className="relative min-h-screen bg-[#F6F8F7] text-slate-800 selection:bg-[#2E8B57]/20 selection:text-[#2E8B57] flex flex-col font-sans">
       {/* Background Glow Decorations */}
-      <div className="absolute top-0 left-1/4 w-[400px] h-[400px] rounded-full bg-brand-saffron/5 blur-[120px] pointer-events-none -z-10" />
-      <div className="absolute top-1/3 right-1/4 w-[500px] h-[500px] rounded-full bg-brand-blue/5 blur-[150px] pointer-events-none -z-10" />
-      <div className="absolute bottom-10 left-1/3 w-[350px] h-[350px] rounded-full bg-brand-green/5 blur-[100px] pointer-events-none -z-10" />
-
-      {/* Header */}
-      <Header />
+      <div className="premium-bg-decorations">
+        <div className="premium-bg-noise" />
+        <div className="premium-bg-blob-1" />
+        <div className="premium-bg-blob-2" />
+        <div className="premium-bg-blob-3" />
+      </div>
 
       {/* Main Content Area */}
-      <main className="flex-1 flex flex-col items-center py-10 px-4 max-w-7xl w-full mx-auto relative">
+      <main className={`flex-1 flex flex-col w-full mx-auto relative ${showLanding ? '' : 'h-screen overflow-hidden'}`}>
         {children}
       </main>
-
-      {/* Footer */}
-      <Footer />
     </div>
   );
 };
