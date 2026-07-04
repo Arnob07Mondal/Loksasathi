@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Sliders, Sparkles, RefreshCw } from 'lucide-react';
+import { Sliders, Sparkles, Shield, RefreshCw } from 'lucide-react';
 import { useDocument, SUPPORTED_LANGUAGES } from '../../contexts/DocumentContext';
 import Card from '../common/Card';
 import Button from '../common/Button';
@@ -15,12 +15,16 @@ const SettingsView = () => {
 
   const [theme, setTheme] = useState('light');
   const [reduceMotion, setReduceMotion] = useState(false);
+  const [screenReaderOptimized, setScreenReaderOptimized] = useState(false);
+  const [localExecutionOnly, setLocalExecutionOnly] = useState(true);
   const [toastMessage, setToastMessage] = useState('');
 
   const handleReset = () => {
     resetState();
     setTheme('light');
     setReduceMotion(false);
+    setScreenReaderOptimized(false);
+    setLocalExecutionOnly(true);
     setActiveLanguage('en');
     setSelectedModel('gemma4:e2b');
     setToastMessage('Preferences successfully reset.');
@@ -41,11 +45,11 @@ const SettingsView = () => {
       )}
 
       <div className="space-y-4">
-        {/* Card 1: Workspace Preferences */}
+        {/* Card 1: Workspace Preferences (Language) */}
         <Card hoverEffect={false} className="border border-slate-200 bg-white p-5">
           <h3 className="text-xs uppercase font-extrabold tracking-wider text-slate-400 mb-4 flex items-center gap-2">
             <Sliders className="w-4 h-4 text-[#2E8B57]" />
-            Workspace Settings
+            Language & Model
           </h3>
 
           <div className="space-y-4">
@@ -89,11 +93,11 @@ const SettingsView = () => {
           </div>
         </Card>
 
-        {/* Card 2: Interface Preferences */}
+        {/* Card 2: Interface Preferences (Theme, Accessibility & Animations) */}
         <Card hoverEffect={false} className="border border-slate-200 bg-white p-5">
           <h3 className="text-xs uppercase font-extrabold tracking-wider text-slate-400 mb-4 flex items-center gap-2">
             <Sparkles className="w-4 h-4 text-[#2E8B57]" />
-            UI Preferences
+            Theme, Animations & Accessibility
           </h3>
 
           <div className="space-y-4">
@@ -126,6 +130,46 @@ const SettingsView = () => {
                 type="checkbox"
                 checked={reduceMotion}
                 onChange={(e) => setReduceMotion(e.target.checked)}
+                className="h-4 w-4 rounded border-slate-300 text-[#2E8B57] focus:ring-[#2E8B57] cursor-pointer"
+              />
+            </div>
+
+            <hr className="border-slate-100" />
+
+            {/* Accessibility: Screen Reader Optimization */}
+            <div className="flex items-center justify-between gap-2">
+              <div>
+                <h4 className="text-xs font-bold text-slate-800">Screen Reader Optimization</h4>
+                <p className="text-[10px] text-slate-400 mt-0.5 font-semibold">Enable high contrast and descriptive ARIA tags.</p>
+              </div>
+              <input
+                type="checkbox"
+                checked={screenReaderOptimized}
+                onChange={(e) => setScreenReaderOptimized(e.target.checked)}
+                className="h-4 w-4 rounded border-slate-300 text-[#2E8B57] focus:ring-[#2E8B57] cursor-pointer"
+              />
+            </div>
+          </div>
+        </Card>
+
+        {/* Card 3: Privacy Settings */}
+        <Card hoverEffect={false} className="border border-slate-200 bg-white p-5">
+          <h3 className="text-xs uppercase font-extrabold tracking-wider text-slate-400 mb-4 flex items-center gap-2">
+            <Shield className="w-4 h-4 text-[#2E8B57]" />
+            Privacy & Trust
+          </h3>
+
+          <div className="space-y-4">
+            {/* Local Execution Only */}
+            <div className="flex items-center justify-between gap-2">
+              <div>
+                <h4 className="text-xs font-bold text-slate-800">Enforce Local Execution Only</h4>
+                <p className="text-[10px] text-slate-400 mt-0.5 font-semibold">Block any outbound external network hooks.</p>
+              </div>
+              <input
+                type="checkbox"
+                checked={localExecutionOnly}
+                onChange={(e) => setLocalExecutionOnly(e.target.checked)}
                 className="h-4 w-4 rounded border-slate-300 text-[#2E8B57] focus:ring-[#2E8B57] cursor-pointer"
               />
             </div>

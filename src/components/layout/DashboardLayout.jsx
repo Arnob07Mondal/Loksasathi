@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { 
   LayoutDashboard, FileText, History, Bookmark, 
-  Settings, HelpCircle, ArrowLeft, Menu, X, Cpu
+  Settings, HelpCircle, ArrowLeft, Menu, X, Cpu, Upload
 } from 'lucide-react';
+import { useDocument } from '../../contexts/DocumentContext';
 
 const DashboardLayout = ({ 
   activeTab, 
@@ -11,9 +12,11 @@ const DashboardLayout = ({
   children 
 }) => {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const { resetState, analysisResult } = useDocument();
 
   const menuItems = [
-    { id: 'dashboard', name: 'Dashboard Workspace', icon: LayoutDashboard },
+    { id: 'dashboard', name: 'Dashboard', icon: LayoutDashboard },
+    { id: 'upload', name: 'Upload Document', icon: Upload },
     { id: 'documents', name: 'My Documents', icon: FileText },
     { id: 'history', name: 'AI History', icon: History },
     { id: 'saved', name: 'Saved Results', icon: Bookmark },
@@ -40,7 +43,7 @@ const DashboardLayout = ({
           {isMobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
         </button>
       </div>
-
+ 
       {/* 2. Left Sidebar (hidden on mobile, visible on desktop) */}
       <aside className={`
         fixed inset-y-0 left-0 z-20 
@@ -66,17 +69,30 @@ const DashboardLayout = ({
               <X className="w-5 h-5" />
             </button>
           </div>
-
+ 
           {/* Navigation Links */}
           <nav className="p-4 space-y-1">
             {menuItems.map((item) => {
               const Icon = item.icon;
-              const isActive = activeTab === item.id;
+              let isActive = activeTab === item.id;
+              
+              // Smart active state targeting for Dashboard vs Upload Document tabs
+              if (item.id === 'dashboard') {
+                isActive = activeTab === 'dashboard' && analysisResult !== null;
+              } else if (item.id === 'upload') {
+                isActive = activeTab === 'dashboard' && analysisResult === null;
+              }
+
               return (
                 <button
                   key={item.id}
                   onClick={() => {
-                    setActiveTab(item.id);
+                    if (item.id === 'upload') {
+                      resetState();
+                      setActiveTab('dashboard');
+                    } else {
+                      setActiveTab(item.id);
+                    }
                     setIsMobileOpen(false);
                   }}
                   className={`
@@ -94,7 +110,7 @@ const DashboardLayout = ({
             })}
           </nav>
         </div>
-
+ 
         {/* Bottom Back Button */}
         <div className="p-4 border-t border-slate-100 bg-slate-50/50">
           <button
@@ -106,7 +122,7 @@ const DashboardLayout = ({
           </button>
         </div>
       </aside>
-
+ 
       {/* Backdrop overlay for mobile menu drawer */}
       {isMobileOpen && (
         <div 
@@ -114,7 +130,7 @@ const DashboardLayout = ({
           onClick={() => setIsMobileOpen(false)}
         />
       )}
-
+ 
       {/* 3. Right Content Pane */}
       <main className="flex-1 flex flex-col min-w-0 md:h-screen md:overflow-y-auto p-6 md:p-10">
         {children}

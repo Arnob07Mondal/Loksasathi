@@ -1,5 +1,5 @@
 import React from 'react';
-import { FileQuestion, ShieldCheck, FileCheck, Mail } from 'lucide-react';
+import { FileQuestion, ShieldCheck, FileCheck, Mail, Info } from 'lucide-react';
 import Card from '../common/Card';
 
 const HelpSupport = () => {
@@ -26,12 +26,24 @@ const HelpSupport = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Main FAQ Column */}
+        {/* Main Columns */}
         <div className="lg:col-span-2 space-y-4">
+          {/* 1. About LokSathi AI */}
+          <Card hoverEffect={false} className="border border-slate-200 bg-white p-5">
+            <h3 className="text-xs uppercase font-extrabold tracking-wider text-slate-400 mb-3 flex items-center gap-2">
+              <Info className="w-4 h-4 text-[#2E8B57]" />
+              About LokSathi AI
+            </h3>
+            <p className="text-[11px] text-slate-500 leading-relaxed font-semibold">
+              LokSathi AI is an expert multilingual government document assistant designed to help Indian citizens decipher official paperwork, circulars, surcharges, and billing terms. By converting bureaucratic jargon into plain-language timelines and action plans, it empowers individuals to navigate civic interfaces independently.
+            </p>
+          </Card>
+
+          {/* 2. FAQ */}
           <Card hoverEffect={false} className="border border-slate-200 bg-white p-5">
             <h3 className="text-xs uppercase font-extrabold tracking-wider text-slate-400 mb-4 flex items-center gap-2">
               <FileQuestion className="w-4 h-4 text-[#2E8B57]" />
-              Frequently Asked Questions
+              Frequently Asked Questions (FAQ)
             </h3>
 
             <div className="space-y-4">
@@ -44,30 +56,32 @@ const HelpSupport = () => {
             </div>
           </Card>
 
+          {/* 3. Privacy Information */}
           <Card hoverEffect={false} className="border border-slate-200 bg-white p-5">
             <h3 className="text-xs uppercase font-extrabold tracking-wider text-slate-400 mb-3 flex items-center gap-2">
               <ShieldCheck className="w-4 h-4 text-[#2E8B57]" />
-              Privacy & Data Security
+              Privacy Information
             </h3>
             <p className="text-[11px] text-slate-500 leading-relaxed font-semibold">
-              LokSathi AI is built on local privacy principles. By sending calls directly to a local loopback server (`localhost:11434`), your confidential details, biometric logs, and signatures are kept safe from remote storage or cloud tracking.
+              Your files never leave your computer. LokSathi AI targets a local loopback server (`http://localhost:11434`) using the Gemma model running under Ollama. Biometrics, structural numbers, consumer IDs, and signatures are processed completely offline, keeping your privacy secure.
             </p>
           </Card>
         </div>
 
         {/* Formats and contact sidebar */}
         <div className="space-y-4">
+          {/* Supported Formats */}
           <Card hoverEffect={false} className="border border-slate-200 bg-white p-5">
             <h3 className="text-xs uppercase font-extrabold tracking-wider text-slate-400 mb-4 flex items-center gap-2">
               <FileCheck className="w-4 h-4 text-[#2E8B57]" />
-              Supported Formats
+              Supported File Formats
             </h3>
             <div className="space-y-3 font-semibold">
               <div>
                 <h4 className="text-[11px] text-slate-800 font-bold uppercase">Documents</h4>
                 <ul className="list-disc pl-4 text-[10px] text-slate-500 mt-1 space-y-0.5">
-                  <li>PDF (.pdf) - Selectable text</li>
-                  <li>PDF (.pdf) - Scanned layouts / image pages</li>
+                  <li>PDF (.pdf) - Selectable text layers</li>
+                  <li>PDF (.pdf) - Scanned templates / canvas loops</li>
                 </ul>
               </div>
               <div>
@@ -81,6 +95,7 @@ const HelpSupport = () => {
             </div>
           </Card>
 
+          {/* Contact Support */}
           <Card hoverEffect={false} className="border border-slate-200 bg-white p-5 text-center">
             <div className="p-3 w-10 h-10 rounded-full bg-[#2E8B57]/10 text-[#2E8B57] flex items-center justify-center mx-auto mb-3">
               <Mail className="w-5 h-5" />

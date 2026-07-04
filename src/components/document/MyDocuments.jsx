@@ -13,9 +13,9 @@ const MyDocuments = ({ onSelectDocument }) => {
         <div className="p-5 rounded-full bg-slate-100 border border-slate-200 text-slate-400 mb-5 shadow-sm">
           <Inbox className="w-10 h-10" />
         </div>
-        <h3 className="text-base font-bold text-slate-800 mb-1 uppercase tracking-wide">No analyzed documents yet</h3>
+        <h3 className="text-base font-bold text-slate-800 mb-1 uppercase tracking-wide">No analyzed documents yet.</h3>
         <p className="text-xs text-slate-500 max-w-xs leading-relaxed font-semibold">
-          Upload your first government document to begin. Once analyzed, your documents will appear here.
+          Your analyzed documents will appear here after successful document processing.
         </p>
       </div>
     );
