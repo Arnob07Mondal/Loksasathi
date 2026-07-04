@@ -283,7 +283,10 @@ const AnalysisPanel = () => {
                   <input
                     type="checkbox"
                     checked={dl.completed}
-                    onChange={() => {}} // Handled by outer container click
+                    onChange={(e) => {
+                      e.stopPropagation();
+                      toggleDeadlineCheck(dl.id);
+                    }}
                     tabIndex={-1}
                     className="mt-0.5 h-3.5 w-3.5 rounded border-slate-300 text-[#2E8B57] focus:ring-[#2E8B57] focus:ring-offset-white cursor-pointer bg-white"
                   />
@@ -355,7 +358,10 @@ const AnalysisPanel = () => {
                   <input
                     type="checkbox"
                     checked={doc.status === 'have'}
-                    onChange={() => {}} // Handled by outer container click
+                    onChange={(e) => {
+                      e.stopPropagation();
+                      toggleDocCheck(doc.id);
+                    }}
                     tabIndex={-1}
                     className="mt-0.5 h-3.5 w-3.5 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500 focus:ring-offset-white cursor-pointer bg-white"
                   />

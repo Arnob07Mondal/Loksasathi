@@ -12,6 +12,10 @@ const UploadZone = () => {
     fileSize,
     uploadDocument,
     processDocument,
+    loadDemoData,
+    apiError,
+    selectedModel,
+    setSelectedModel,
     resetState
   } = useDocument();
 
@@ -33,9 +37,9 @@ const UploadZone = () => {
     setError('');
     if (!file) return;
 
-    const validTypes = ['application/pdf', 'image/jpeg', 'image/png', 'image/jpg'];
+    const validTypes = ['application/pdf', 'image/jpeg', 'image/png', 'image/jpg', 'image/webp'];
     if (!validTypes.includes(file.type)) {
-      setError('Please upload a PDF or an Image (JPEG, PNG).');
+      setError('Please upload a PDF or an Image (JPEG, PNG, WEBP).');
       return;
     }
 
@@ -116,7 +120,7 @@ const UploadZone = () => {
             ref={fileInputRef}
             type="file"
             className="hidden"
-            accept=".pdf,image/png,image/jpeg,image/jpg"
+            accept=".pdf,image/png,image/jpeg,image/jpg,image/webp"
             onChange={handleFileInput}
             id="document-file-input"
           />
@@ -136,6 +140,7 @@ const UploadZone = () => {
             <span className="text-[10px] font-bold px-2 py-0.5 bg-slate-100/85 text-slate-500 rounded-md border border-slate-200/40">PDF</span>
             <span className="text-[10px] font-bold px-2 py-0.5 bg-slate-100/85 text-slate-500 rounded-md border border-slate-200/40">JPG</span>
             <span className="text-[10px] font-bold px-2 py-0.5 bg-slate-100/85 text-slate-500 rounded-md border border-slate-200/40">PNG</span>
+            <span className="text-[10px] font-bold px-2 py-0.5 bg-slate-100/85 text-slate-500 rounded-md border border-slate-200/40">WEBP</span>
             <span className="text-[10px] font-semibold text-slate-400 ml-1">Max size: 10MB</span>
           </div>
 
@@ -181,10 +186,10 @@ const UploadZone = () => {
           </div>
 
           {/* Language Selector for Translation on Homepage */}
-          <div className="mb-5 p-4 rounded-[16px] bg-white/40 border border-slate-200/60 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="mb-6 p-4.5 rounded-2xl bg-slate-950/60 border border-slate-900 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <h5 className="text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-0.5">Select Language</h5>
-              <p className="text-[10px] text-slate-500 font-medium">Choose target Indian language for simplification.</p>
+              <h5 className="text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">Target Language</h5>
+              <p className="text-[11px] text-slate-500 font-medium">Choose which Indian language Gemma will simplify the document into.</p>
             </div>
             <LanguageSelector />
           </div>

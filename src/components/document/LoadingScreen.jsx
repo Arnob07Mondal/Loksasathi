@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { Compass, FileText, Cpu } from 'lucide-react';
+import React from 'react';
+import { Cpu } from 'lucide-react';
+import { useDocument } from '../../contexts/DocumentContext';
 import Card from '../common/Card';
 
 const LoadingScreen = () => {
-  const [step, setStep] = useState(0);
+  const { analysisStatus } = useDocument();
 
   const steps = [
     { text: 'Scanning document layout and structure...', percent: 20 },
@@ -12,17 +13,19 @@ const LoadingScreen = () => {
     { text: 'Finalizing translations and next steps checklist...', percent: 95 }
   ];
 
-  useEffect(() => {
-    const timer1 = setTimeout(() => setStep(1), 600);
-    const timer2 = setTimeout(() => setStep(2), 1200);
-    const timer3 = setTimeout(() => setStep(3), 1900);
+  // Map progress phases to step indices for visualization
+  const getActiveStep = (status) => {
+    if (!status) return 0;
+    const s = status.toLowerCase();
+    if (s.includes('loading') || s.includes('scan')) return 0;
+    if (s.includes('converting') || s.includes('transcribing') || s.includes('ocr')) return 1;
+    if (s.includes('gemma') || s.includes('analysis')) return 2;
+    if (s.includes('parsing') || s.includes('results')) return 3;
+    return 0;
+  };
 
-    return () => {
-      clearTimeout(timer1);
-      clearTimeout(timer2);
-      clearTimeout(timer3);
-    };
-  }, []);
+  const step = getActiveStep(analysisStatus);
+  const progressPercent = steps[step]?.percent || 15;
 
   return (
     <div className="w-full max-w-xl mx-auto px-4 py-8 text-center">
@@ -32,11 +35,11 @@ const LoadingScreen = () => {
 
         <div className="flex flex-col items-center justify-center">
           {/* Radar Scanning Ring */}
-          <div className="relative mb-6 flex items-center justify-center w-24 h-24">
+          <div className="relative mb-8 flex items-center justify-center w-28 h-28">
             {/* Outer radar ring */}
-            <div className="absolute inset-0 border border-[#2E8B57]/10 rounded-full animate-ping" />
-            <div className="absolute inset-3 border border-[#2E8B57]/20 rounded-full animate-pulse-slow" />
-            <div className="absolute inset-6 border border-[#2E8B57]/30 rounded-full" />
+            <div className="absolute inset-0 border border-brand-saffron/10 rounded-full animate-ping" />
+            <div className="absolute inset-4 border border-brand-saffron/20 rounded-full animate-pulse-slow" />
+            <div className="absolute inset-8 border border-brand-saffron/40 rounded-full" />
             
             {/* Center Glowing Icon */}
             <div className="relative p-4.5 rounded-[18px] bg-white border border-[#2E8B57]/20 text-[#2E8B57] shadow-md">
@@ -55,38 +58,38 @@ const LoadingScreen = () => {
           {/* Progress Bar Container */}
           <div className="w-full bg-slate-100 border border-slate-200/80 rounded-full h-2 mb-6 overflow-hidden relative shadow-inner">
             <div
-              className="bg-gradient-to-r from-[#2E8B57] to-[#5FAF7B] h-full rounded-full transition-all duration-500 ease-out shadow-sm"
-              style={{ width: `${steps[step].percent}%` }}
+              className="bg-gradient-to-r from-brand-saffron to-brand-saffron-dark h-full rounded-full transition-all duration-500 ease-out shadow-[0_0_8px_1px_rgba(249,115,22,0.3)]"
+              style={{ width: `${progressPercent}%` }}
             />
           </div>
 
-          {/* Dynamic Progress Steps Checklist */}
+          {/* Active Status Display Block */}
           <div
             role="status"
             aria-live="polite"
-            className="w-full max-w-xs text-left mx-auto bg-white/45 p-4 rounded-[20px] border border-slate-200/60 space-y-2.5 shadow-sm"
+            className="w-full max-w-xs text-left mx-auto bg-white p-5 rounded-2xl border border-slate-200/80 space-y-3.5 shadow-sm"
           >
             {steps.map((s, index) => {
               const isActive = index === step;
               const isCompleted = index < step;
               return (
-                <div key={index} className="flex items-center gap-2.5 transition-all duration-300">
+                <div key={index} className="flex items-center gap-3 transition-all duration-300">
                   <div className={`
-                    w-2 h-2 rounded-full shrink-0 transition-all duration-300
+                    w-2.5 h-2.5 rounded-full shrink-0 transition-all duration-300
                     ${isCompleted 
-                      ? 'bg-[#5FAF7B] ring-2 ring-[#5FAF7B]/20' 
+                      ? 'bg-brand-green ring-2 ring-brand-green/20' 
                       : isActive 
-                        ? 'bg-[#2E8B57] ring-4 ring-[#2E8B57]/20 animate-pulse' 
+                        ? 'bg-brand-saffron ring-4 ring-brand-saffron/25 animate-pulse' 
                         : 'bg-slate-300'
                     }
                   `} />
                   <span className={`
-                    text-[10px] font-bold uppercase tracking-wider transition-colors duration-300
+                    text-[11px] font-semibold tracking-wide transition-colors duration-300
                     ${isCompleted 
                       ? 'text-slate-400 line-through' 
                       : isActive 
-                        ? 'text-[#2E8B57]' 
-                        : 'text-slate-400'
+                        ? 'text-brand-saffron font-bold animate-pulse' 
+                        : 'text-slate-500'
                     }
                   `}>
                     {s.text}
@@ -95,6 +98,12 @@ const LoadingScreen = () => {
               );
             })}
           </div>
+          
+          {analysisStatus && (
+            <p className="text-[10px] text-slate-400 font-bold mt-4 uppercase tracking-wider">
+              Live: <span className="text-[#2E8B57]">{analysisStatus}</span>
+            </p>
+          )}
         </div>
       </Card>
     </div>
