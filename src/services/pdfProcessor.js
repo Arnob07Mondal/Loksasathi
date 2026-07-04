@@ -1,3 +1,5 @@
+import { ollamaClient } from './ollamaClient';
+
 /**
  * PDF Processor Service
  * Handles PDF text layer extraction, canvas conversions, and scanned page page-by-page OCR loops.
@@ -50,26 +52,13 @@ export const extractTextFromScannedPage = async (base64Image, pageNumber, modelN
   };
 
   try {
-    const response = await fetch('/ollama/api/generate', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(payload)
-    });
-
-    if (!response.ok) {
-      if (response.status === 404) {
-        throw new Error(`Model '${modelName}' not found. Run 'ollama pull ${modelName}' in your terminal.`);
-      }
-      throw new Error(`Ollama text extraction failed on page ${pageNumber} with status ${response.status}`);
-    }
-
-    const data = await response.json();
-    return data.response || '';
+    return await ollamaClient.generate(payload);
   } catch (error) {
     console.error(`Page ${pageNumber} transcription call failed:`, error);
-    throw error;
+    if (error.message && error.message.includes('not found')) {
+      throw new Error(`Model '${modelName}' not found. Run 'ollama pull ${modelName}' in your terminal.`);
+    }
+    throw new Error(`Ollama text extraction failed on page ${pageNumber}. ${error.message}`);
   }
 };
 
