@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
-import { analyzeDocument } from '../services/api';
+import { analyze } from '../services/analysisPipeline';
 import { parseGemmaResponse } from '../utils/parser';
 import { MOCK_ANALYSIS_DATA } from '../utils/mockData';
 
@@ -64,7 +64,7 @@ export const DocumentProvider = ({ children }) => {
     const targetLanguageName = activeLangObj.name;
 
     try {
-      const data = await analyzeDocument(uploadedFile, targetLanguageName, selectedModel, (status) => {
+      const data = await analyze(uploadedFile, targetLanguageName, selectedModel, (status) => {
         setAnalysisStatus(status);
       });
       const normalizedResult = parseGemmaResponse(data, activeLanguage);
