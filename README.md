@@ -4,6 +4,31 @@ LokSathi AI is a premium, 100% offline government document assistant powered by 
 
 ---
 
+## 📸 App Screenshots
+
+### 🌐 Landing Page
+*Welcome screen, feature grid, and system details with full responsiveness and clean layouts.*
+
+| Hero Section | Feature Highlights |
+| :---: | :---: |
+| ![Landing Page Hero](public/screenshots/landing_hero.png) | ![Features Grid](public/screenshots/features.png) |
+
+| Platform Mission & Details |
+| :---: |
+| ![Why LokSathi AI](public/screenshots/why_loksathi.png) |
+
+### 🖥️ Dashboard & File Upload
+*Local document upload interface supporting PDF, JPG, PNG, and WebP, with real-time task manager and status indicators.*
+
+![Dashboard UI](public/screenshots/dashboard.png)
+
+### 📊 Document Analysis Report
+*AI-generated summaries, extracted highlights, checklists, dates, and localized translations (e.g., Bengali translation shown below).*
+
+![Analysis Report UI](public/screenshots/analysis_report.png)
+
+---
+
 ## ✨ Features
 - **100% Offline Privacy**: Intercepts documents locally; no data ever leaves your computer.
 - **Selectable PDF Text Extraction**: Extracts text layers instantly.
